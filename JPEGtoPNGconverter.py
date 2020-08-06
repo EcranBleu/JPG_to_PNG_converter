@@ -19,7 +19,7 @@ def jpg_copy():
 # Create destination folder and apply copy, or just apply copy if the folder already exists.
 
 try:
-    os.mkdir(sys.argv[2])
+    os.mkdir(new_folder)
     jpg_copy()
 except FileExistsError:
     jpg_copy()
@@ -29,7 +29,7 @@ except FileExistsError:
 for target_image in new_folder.iterdir():
     if str(target_image).lower().endswith('.png'):
         continue
-    img = Image.open(target_image)
-    img_copy = img.copy()
-    img_copy.save(f'{str(target_image).rsplit(".")[0]}.png')
+    with Image.open(target_image) as img:
+        img_copy = img.copy()
+        img_copy.save(f'{str(target_image).rsplit(".")[0]}.png')
     os.remove(target_image)
