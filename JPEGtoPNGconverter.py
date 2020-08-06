@@ -27,9 +27,8 @@ except FileExistsError:
 # Convert the files in the destination folder.
 
 for target_image in new_folder.iterdir():
-    if str(target_image).lower().endswith('.png'):
-        continue
-    with Image.open(target_image) as img:
-        img_copy = img.copy()
-        img_copy.save(f'{str(target_image).rsplit(".")[0]}.png')
+    if not str(target_image).lower().endswith('.png'):
+        with Image.open(target_image) as img:
+            img_copy = img.copy()
+            img_copy.save(f'{str(target_image).rsplit(".")[0]}.png')
     os.remove(target_image)
